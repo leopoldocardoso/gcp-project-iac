@@ -1,0 +1,67 @@
+
+
+
+resource "google_compute_firewall" "gke_allow_ssh" {
+  name    = "gke-allow-ssh"
+  network = data.google_compute_network.vpc_gke.id
+
+
+  direction     = "INGRESS"
+  priority      = 101
+  source_ranges = ["192.168.29.0/24"]
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  target_tags = ["gke-node-prod", "gke-node-dev"]
+  depends_on  = [data.google_compute_network.vpc_gke]
+}
+
+resource "google_compute_firewall" "gke_selective_allow" {
+  name    = "gke-selective-allow"
+  direction = "INGRESS"
+  priority = "102"
+  source_ranges = ["192.168.29.2/32", "34.71.188.94"]
+  network = data.google_compute_network.vpc_gke.id
+  allow {
+    protocol = "tcp"
+    ports = [
+      "443",   # API server
+      "10250", # Kubelet
+      "8080",  # Dashboard/ferramentas
+      "8443",  # Webhooks
+      "9443"   # Admission controllers
+    ]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["8472"] # DNS + VXLAN
+  }
+
+  allow {
+    protocol = "icmp"
+  }
+
+  target_tags = ["gke-node-dev"]
+  depends_on  = [data.google_compute_network.vpc_gke]
+
+}
+
+
+
+resource "google_compute_firewall" "gke_nodes_deny_filtered_ports" {
+  name      = "gke-nodes-deny-filtered-ports"
+  priority  = 50
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
+  target_tags = ["gke-node-dev", "gke-gke-cluster-project-356866df-node"]  # Substitua pela tag real
+  network = data.google_compute_network.vpc_gke.id
+  deny {
+    protocol = "tcp"
+    ports = ["11", "13", "15", "19", "21", "25", "26", "37", "38", "43", "49", "53"]
+  }
+}
+

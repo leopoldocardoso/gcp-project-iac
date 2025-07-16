@@ -1,0 +1,17 @@
+- name: Install Tools
+  hosts: all
+
+  tasks:
+  - name: Install required packages
+    ansible.builtin.apt:
+      name:
+        - git
+        - net-tools
+        - curl
+        - wget
+        - vim
+        - htop
+        - unzip
+        - software-properties-common
+      update_cache: yes
+      state: present

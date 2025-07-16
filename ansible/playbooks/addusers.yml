@@ -1,0 +1,32 @@
+---
+- name: Cria usuários
+  hosts: all
+  tasks:
+
+  - name: Add users
+    ansible.builtin.user:
+      name: ubuntu
+      shell: /bin/bash
+      create_home: yes
+      state: present
+
+  - name: Create directory .ssh
+    ansible.builtin.file:
+      path: /home/ubuntu/.ssh
+      state: directory
+      owner: ubuntu
+      group: ubuntu
+      mode: '0700'
+
+  - name: Add public key to authorized_keys
+    ansible.builtin.copy:
+      src: /home/leopoldo/.ssh/gcp_personal.pub
+      dest: /home/ubuntu/.ssh/authorized_keys
+      owner: ubuntu
+      group: ubuntu
+      mode: '0600'
+
+
+
+  
+

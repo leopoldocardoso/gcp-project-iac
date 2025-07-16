@@ -1,0 +1,13 @@
+---
+- name: Update VMs GCP
+  hosts: all
+
+  tasks:
+  - name: Dpkg Configure
+    ansible.builtin.command: dpkg --configure -a
+
+  - name: Update all packages to latest version
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+      update_cache: yes
