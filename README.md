@@ -33,9 +33,7 @@ A infraestrutura provisionada no GCP inclui:
 │   │   ├── gke/             # Módulo para Google Kubernetes Engine
 │   │   ├── instances/       # Módulo para instâncias de VM
 │   │   └── vpc/             # Módulo para Virtual Private Cloud
-│   ├── terraform.lock.hcl   # Lock file do Terraform
 │   ├── main.tf              # Configuração principal
-│   ├── plan.out             # Plano de execução do Terraform
 │   └── variables.tf         # Variáveis do Terraform
 ├── .gitignore               # Arquivos ignorados pelo Git
 └── README.md                # Este arquivo
