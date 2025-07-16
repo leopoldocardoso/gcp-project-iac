@@ -70,8 +70,8 @@ resource "google_container_node_pool" "dev_node_pool" {
   initial_node_count = 1
 
   autoscaling {
-    min_node_count = 1 # replicação para todas as zonas multiplicado por 3
-    max_node_count = 1 # replicação para todas as zonas multiplicado por 3
+    min_node_count = 1
+    max_node_count = 1
   }
 
   management {
@@ -82,7 +82,6 @@ resource "google_container_node_pool" "dev_node_pool" {
   node_config {
     machine_type = var.machine_type_node_dev
     disk_size_gb = 50
-    #disk_type    = "pd-standard"  # Usar disco padrão em vez de SSD
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
@@ -117,8 +116,7 @@ resource "google_container_node_pool" "prod_node_pool" {
 
   node_config {
     machine_type = var.machine_type_node_prod
-    disk_size_gb = 50 # Reduzir de 100GB para 50GB
-    #disk_type    = "pd-standard"  # Usar disco padrão em vez de SSD
+    disk_size_gb = 50
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
