@@ -231,7 +231,6 @@ Este projeto implementa várias práticas de segurança:
 
 ##  Notas Importantes
 
-- Os arquivos `Login.md`, `devops-464620-3e83c5b28757.json` e a pasta `cloud-scheduler` podem ser ignorados
 - Certifique-se de configurar as variáveis de ambiente necessárias antes da execução
 - Monitore os custos do GCP durante o uso dos recursos
 
