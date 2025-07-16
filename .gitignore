@@ -41,3 +41,5 @@ terraform.rc
 cloud-scheduler
 Login.md
 *.json
+terraform/.terraform.lock.hcl
+*.out
