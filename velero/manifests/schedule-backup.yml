@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: weekly-full-backup
+  namespace: velero
+spec:
+  schedule: "00 13 * * *" # Às 10:50 do dia 31 de julho
+  template: # <--- O template do backup começa aqui
+    # Todos os detalhes do backup devem estar aninhados aqui dentro
+    includedNamespaces:
+    - "*"
+    storageLocation: default
+    volumeSnapshotLocations:
+    - default
+    ttl: 720h0m0s # Manter backups por 30 dias

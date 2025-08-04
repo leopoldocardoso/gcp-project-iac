@@ -1,0 +1,14 @@
+apiVersion: v1
+items:
+- apiVersion: velero.io/v1
+  kind: BackupStorageLocation
+  metadata:
+    labels:
+      component: velero
+    name: default
+    namespace: velero
+  spec:
+    default: true
+    objectStorage:
+      bucket: backup-velero-devops-464620
+    provider: gcp
